@@ -42,4 +42,14 @@ class CharCountControllerTest {
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
+
+    @Test
+    void postNotValidString() {
+        String url = "http://localhost:" + port + "/api/count/";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.TEXT_PLAIN);
+        HttpEntity<String> request = new HttpEntity<>("absdefgtrtq", headers);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
 }
